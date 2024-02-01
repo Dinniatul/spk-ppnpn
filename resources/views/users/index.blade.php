@@ -89,8 +89,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="password">Password</label>
-                                                                <input type="text" name="password" class="form-control"
-                                                                    >
+                                                                <input type="text" name="password" class="form-control">
                                                             </div>
                                                             <!-- Your existing submit button -->
                                                             <div class="row">
@@ -124,7 +123,7 @@
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
-                
+
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,
@@ -164,12 +163,7 @@
         })
     </script>
 
-    <script>
-        function printSurat(id) {
-            // Logika untuk mengarahkan ke halaman cetak surat berdasarkan ID
-            window.location.href = '{{ url('/cetak-surat') }}/' + id;
-        }
-    </script>
+
 
 
 
