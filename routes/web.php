@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\NilaiTriwulanController;
+use App\Http\Controllers\PerhitunganController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\PPNPNController;
 use App\Http\Controllers\UserController;
@@ -37,13 +38,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/kriteria', [KriteriaController::class, 'store']);
     Route::put('/kriteria/{idKr}', [KriteriaController::class, 'update']);
     Route::get('/kriteria/delete/{idKr}', [KriteriaController::class, 'destroy']);
-    
+
 
 
     Route::get('/ppnpn', [PPNPNController::class, 'index']);
     Route::post('/ppnpn', [PPNPNController::class, 'store']);
-    Route::put('/ppnpn/{idPPNPN}',[PPNPNController::class,'update']);
-    Route::get('/ppnpn/delete/{idPPNPN}',[PPNPNController::class,'destroy']);
+    Route::put('/ppnpn/{idPPNPN}', [PPNPNController::class, 'update']);
+    Route::get('/ppnpn/delete/{idPPNPN}', [PPNPNController::class, 'destroy']);
 
     Route::get('/periode', [PeriodeController::class, 'index']);
     Route::post('/periode', [PeriodeController::class, 'store']);
@@ -55,8 +56,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/nilai-triwulan', [NilaiTriwulanController::class, 'store']);
     Route::put('/nilai-triwulan/{idNtr}', [NilaiTriwulanController::class, 'update']);
     Route::put('/konversi/{idNtr}', [NilaiTriwulanController::class, 'konversi']);
+    Route::get('/nilai-triwulan/delete/{idNtr}', [NilaiTriwulanController::class, 'destroy']);
     // Route::put('/konversi/{idNtr}', [NilaiTriwulanController::class, 'konversiNilai']);
-    
-    
 
+
+    Route::get('/perhitungan', [PerhitunganController::class, 'index']);
 });

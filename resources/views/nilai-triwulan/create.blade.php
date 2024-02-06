@@ -1,7 +1,7 @@
 @extends('layouts.master')
-@section('title', 'Nilai Triwulan')
-@section('header', 'Data Nilai Triwulan')
-@section('breadcrumb', 'Nilai Triwulan')
+@section('title', 'Penilaian')
+@section('header', 'Form Tambah Data Penilaian ')
+@section('breadcrumb', 'Penilaian')
 @section('container-fluid')
 
     <div class="container">

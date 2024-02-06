@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function login(){
+    public function login()
+    {
         return view('auth.login');
     }
 
@@ -17,7 +18,16 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication passed
-            return redirect()->intended('/dashboard'); // Ganti dengan rute yang sesuai
+
+            $role = auth()->user()->role;
+
+            if ($role == 'Admin') {
+                return redirect()->intended('/dashboard'); // Ganti dengan rute yang sesuai
+
+            } else {
+                return redirect()->intended('/nilai-triwulan'); // Ganti dengan rute yang sesuai
+
+            }
         }
 
         return back()->with('errorLogin', 'Email or password invalid !');

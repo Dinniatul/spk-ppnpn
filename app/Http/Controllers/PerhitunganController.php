@@ -8,7 +8,7 @@ use App\Models\Periode;
 use App\Models\PPNPN;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class PerhitunganController extends Controller
 {
     public function index()
     {
@@ -67,7 +67,7 @@ class DashboardController extends Controller
         }
         // dd($matriksNormalisasiTerbobot);
 
-        return view('dashboard', [
+        return view('perhitungan.index', [
             'nilaiTriwulan' => $nilaiTriwulans,
             'namaPPNPN' => $namaPPNPN,
             'periode' => $periode,

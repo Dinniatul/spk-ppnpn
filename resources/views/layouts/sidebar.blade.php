@@ -36,16 +36,18 @@
                 data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a href="{{ url('/dashboard') }}" class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Dashboard
-                            {{-- <span class="right badge badge-danger">New</span> --}}
-                        </p>
-                    </a>
-                </li>
+
                 @if (Auth::user()->role == 'Admin')
+                    <li class="nav-item">
+                        <a href="{{ url('/dashboard') }}"
+                            class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Dashboard
+                                {{-- <span class="right badge badge-danger">New</span> --}}
+                            </p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ url('users') }}" class="nav-link {{ Request::is('users') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users"></i>
@@ -100,7 +102,20 @@
                         <a href="{{ url('nilai-triwulan') }}"
                             class="nav-link {{ Request::is('nilai-triwulan') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-sort-numeric-up-alt"></i>
-                            <p>Nilai Triwulan</p>
+                            <p>Penilaian</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('perhitungan') }}"
+                            class="nav-link {{ Request::is('perhitungan') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-calculator"></i>
+                            <p>Perhitungan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('laporan') }}" class="nav-link {{ Request::is('laporan') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-file"></i>
+                            <p>Laporan</p>
                         </a>
                     </li>
                     <li class="nav-header">SETTINGS</li>
@@ -117,7 +132,7 @@
                         <a href="{{ url('nilai-triwulan') }}"
                             class="nav-link {{ Request::is('nilai-triwulan') ? 'active' : '' }}">
                             <i class=" nav-icon fas fa-sort-numeric-up-alt"></i>
-                            <p>Nilai Triwulan</p>
+                            <p>Penilaian</p>
                         </a>
                     </li>
                     <li class="nav-header">SETTINGS</li>

@@ -1,13 +1,13 @@
 @extends('layouts.master')
-@section('title', 'Nilai Triwulan')
-@section('header', 'Data Nilai Triwulan')
-@section('breadcrumb', 'Nilai Triwulan')
+@section('title', 'Penilaian')
+@section('header', 'Data Penilaian ')
+@section('breadcrumb', 'Penilaian')
 @section('container-fluid')
 
     <div class="card">
         <div class="card-header">
             <a href="{{ url('nilai-triwulan/create') }}" class="btn btn-outline-success">
-                <i class="fa-solid fas fa-plus"></i> Tambah Nilai Triwulan
+                <i class="fa-solid fas fa-plus"></i> Tambah Penilaian
             </a>
         </div>
         <div class="card-body">
@@ -51,8 +51,10 @@
                                             <i class="fa fa-edit"></i>
                                         </button>
                                         @if (auth()->user()->role == 'Admin')
-                                            <a href="" class="btn btn-danger btn-sm " title="hapus"><i
-                                                    class="fas fa-trash"></i></a>
+                                            <a href="#" id="btn-hapus" class="btn btn-danger btn-sm"
+                                                data-id="{{ $item->idNtr }}" title="Hapus">
+                                                <i class="fa-solid fas fa-trash"></i>
+                                            </a>
                                         @endif
 
                                     </div>
@@ -62,8 +64,7 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header text-center">
-                                            <h5 class="modal-title text-center" id="exampleModalLabel">Form Ubah Status
-                                                Pengajuan</h5>
+                                            <h5 class="modal-title text-center" id="exampleModalLabel">Form Edit Penilaian</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
@@ -147,6 +148,7 @@
         </div>
     </div>
 
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
@@ -157,5 +159,30 @@
                 "autoWidth": false,
             });
         });
+
+        $(document).on('click', '#btn-hapus', function(e) {
+            e.preventDefault();
+            var link = $(this).attr('data-id');
+            console.log(link);
+
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Data Akan di Hapus!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = "/ppnpn" + "/delete/" + link;
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        })
     </script>
 @endsection

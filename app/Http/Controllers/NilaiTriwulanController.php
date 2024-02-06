@@ -7,6 +7,7 @@ use App\Models\NilaiTriwulan;
 use App\Models\Periode;
 use App\Models\PPNPN;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class NilaiTriwulanController extends Controller
@@ -16,20 +17,22 @@ class NilaiTriwulanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $kriteria = [];
         $periode = Periode::all();
         $namaPPNPN = PPNPN::all();
         $role = auth()->user()->role;
+
         if ($role == 'Atasan Langsung') {
             $kriteria = Kriteria::where('idKr', '!=', 6)->get();
-            // dd($kriteria);
         } elseif ($role == 'Kepegawaian') {
             $kriteria = Kriteria::where('idKr', 6)->get();
         } else {
             $kriteria = Kriteria::all();
         }
+
         if ($role == 'Admin') {
             $nilaiTriwulans = NilaiTriwulan::with(['PPNPN', 'Periode', 'Kriteria'])->get();
         } else {
@@ -38,16 +41,20 @@ class NilaiTriwulanController extends Controller
                 ->where('user_id', $currentUser->id)
                 ->get();
         }
-        // dd($kriteria);
+
         
+
         return view('nilai-triwulan.index', [
             'nilaiTriwulan' => $nilaiTriwulans,
             'namaPPNPN' => $namaPPNPN,
             'periode' => $periode,
-            'kriteria' => $kriteria
-
+            'kriteria' => $kriteria,
+           
         ]);
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -85,9 +92,38 @@ class NilaiTriwulanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(Request $request)
+    // {
+    //     // dd($request->all());
+    //     $validate = $request->validate([
+    //         'idPPNPN' => 'required',
+    //         'idPr' => 'required',
+    //         'idKr' => 'required',
+    //         'nilai' => 'required',
+    //         'nilai_konversi' => 'nullable',
+    //     ]);
+
+    //     try {
+    //         // Dapatkan ID pengguna yang saat ini terotentikasi
+    //         $user_id = auth()->id();
+
+    //         // Tetapkan nilai konversi ke null saat membuat data baru
+    //         $validate['nilai_konversi'] = null;
+
+    //         // Tambahkan ID pengguna ke dalam data yang akan disimpan
+    //         $validate['user_id'] = $user_id;
+
+    //         NilaiTriwulan::create($validate);
+    //         Alert::success('Berhasil', 'Data berhasil ditambahkan');
+    //         return redirect('/nilai-triwulan');
+    //     } catch (\Throwable $e) {
+    //         Alert::error('Gagal', 'Data gagal ditambahkan');
+    //         return redirect('/nilai-triwulan');
+    //     }
+    // }
+
     public function store(Request $request)
     {
-        // dd($request->all());
         $validate = $request->validate([
             'idPPNPN' => 'required',
             'idPr' => 'required',
@@ -107,6 +143,22 @@ class NilaiTriwulanController extends Controller
             $validate['user_id'] = $user_id;
 
             NilaiTriwulan::create($validate);
+
+            // Ambil semua nilai konversi dari database
+            $nilaiKonversiArray = NilaiTriwulan::pluck('nilai_konversi')->toArray();
+
+
+            // Buat matriks untuk metode Moora
+            $matriksMoora = [];
+            foreach ($nilaiKonversiArray as $nilaiKonversi) {
+                // Sesuaikan dengan struktur matriks Moora yang Anda butuhkan
+                $matriksMoora[] = [
+                    'nilai_konversi' => $nilaiKonversi,
+                    // Tambahkan atribut lain sesuai kebutuhan
+                ];
+            }
+
+
             Alert::success('Berhasil', 'Data berhasil ditambahkan');
             return redirect('/nilai-triwulan');
         } catch (\Throwable $e) {
@@ -114,7 +166,6 @@ class NilaiTriwulanController extends Controller
             return redirect('/nilai-triwulan');
         }
     }
-
 
     // Fungsi untuk menghitung nilai konversi
     private function hitungKonversi($nilai)
@@ -186,7 +237,7 @@ class NilaiTriwulanController extends Controller
      */
     public function update(Request $request, $idNtr)
     {
-        
+
         $nilaiTriwulan = NilaiTriwulan::findOrFail($idNtr);
         $validate = $request->validate([
             'user_id' => 'required',
@@ -223,8 +274,15 @@ class NilaiTriwulanController extends Controller
      * @param  \App\Models\NilaiTriwulan  $nilaiTriwulan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(NilaiTriwulan $nilaiTriwulan)
+    public function destroy($idNtr)
     {
-        //
+        try {
+            $ntr = NilaiTriwulan::findOrFail($idNtr);
+            $ntr->delete();
+            return redirect('/nilai-triwulan');
+        } catch (\Exception $e) {
+            Alert::toast('Berhasil mengahapus data',);
+            return back()->withErrors(['error' => 'Gagal menghapus data.']);
+        }
     }
 }
