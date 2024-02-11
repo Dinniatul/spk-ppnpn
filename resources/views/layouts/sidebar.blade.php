@@ -144,6 +144,32 @@
                             </p>
                         </a>
                     </li>
+                @elseif (Auth::user()->role == 'Sekretaris')
+                    <li class="nav-item">
+                        <a href="{{ url('/dashboard') }}"
+                            class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-th"></i>
+                            <p>
+                                Dashboard
+                                {{-- <span class="right badge badge-danger">New</span> --}}
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('laporan') }}" class="nav-link {{ Request::is('laporan') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-file"></i>
+                            <p>Laporan</p>
+                        </a>
+                    </li>
+                    <li class="nav-header">SETTINGS</li>
+                    <li class="nav-item">
+                        <a href="{{ url('/logout') }}" class="nav-link">
+                            <i class="fa-regular fas fa-right-from-bracket"></i>
+                            <p>
+                                Logout
+                            </p>
+                        </a>
+                    </li>
                 @endif
             </ul>
         </nav>

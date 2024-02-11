@@ -23,9 +23,7 @@
                                         id="name" value="{{ old('name') }}" name="name"
                                         placeholder="Masukkan nama lengkap" autofocus required>
                                     @error('name')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
+                                        <div class="text-danger" style="font-size:12px;">*{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -35,9 +33,7 @@
                                     <input type="text" class="form-control " id="username" value="{{ old('username') }}"
                                         name="username" placeholder="Masukkan username user" autofocus required>
                                     @error('username')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
+                                        <div class="text-danger" style="font-size:12px;">*{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -57,11 +53,9 @@
                                 <div class="mb-2">
                                     <label for="password" class="form-label">Password</label>
                                     <input type="password" class="form-control" id="password" value="{{ old('password') }}"
-                                        name="password" >
+                                        name="password">
                                     @error('password')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
+                                        <div class="text-danger" style="font-size:12px;">*{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>

@@ -90,7 +90,7 @@
                             @foreach ($kriteria as $item)
                                 <th>{{ $item->nmKr }}</th>
                             @endforeach
-                            <th>Optimasi</th>
+                            <th class="bg-warning">Optimasi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -108,7 +108,7 @@
                                     <td>{{ number_format($nilai, 6) }}</td>
                                 @endforeach
                                 <!-- Menampilkan total nilai -->
-                                <td>{{ number_format($totalNilai, 5) }}</td>
+                                <td class="bg-warning"><b>{{ number_format($totalNilai, 5) }}</b></td>
                             </tr>
                         @endforeach
                     </tbody>

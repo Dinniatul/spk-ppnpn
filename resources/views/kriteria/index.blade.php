@@ -111,6 +111,7 @@
                             <input type="text" name="nmKr" class="form-control" id="nmKr"
                                 placeholder="Enter Nama Kriteria">
                         </div>
+
                         <div class="form-group">
                             <label for="jenisKr">Jenis Kriteria</label>
                             <select name="jenisKr" class="form-control" id="jenisKr">
@@ -122,6 +123,10 @@
                             <label for="bobotKr">Bobot Kriteria</label>
                             <input type="text" name="bobotKr" class="form-control" id="bobotKr"
                                 placeholder="Enter Bobot Kriteria">
+                            @error('bobotKr')
+                                <div class="text-danger" style="font-size:12px;">*{{ $message }}</div>
+                            @enderror
+
                         </div>
 
                         <!-- Your existing submit button -->
@@ -151,7 +156,7 @@
                 "autoWidth": false,
             });
         });
-        
+
         $(document).on('click', '#btn-hapus', function(e) {
             e.preventDefault();
             var link = $(this).attr('data-id');
@@ -177,5 +182,5 @@
             })
         })
     </script>
-    
+
 @endsection

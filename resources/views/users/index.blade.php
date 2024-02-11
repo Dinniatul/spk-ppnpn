@@ -152,7 +152,7 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location = "/penduduk" + "/delete/" + link;
+                    window.location = "/users" + "/delete/" + link;
                     Swal.fire(
                         'Deleted!',
                         'Your file has been deleted.',

@@ -48,7 +48,7 @@ class KriteriaController extends Controller
         ], [
             'nmKr.required' => 'Tidak Boleh Kosong',
             'jenisKr.required' => 'Tidak Boleh Kosong',
-            'bobotKr.required' => 'Tidak Boleh Kosong',
+            'bobotKr.required' => 'Gunakan Karakter .',
 
         ]);
 
